@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "register";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/StyleSheet1.css">
+    <link rel="icon" href="~/Content/nkustnew.ico" type="image/x-icon">
+    <title>國立高雄科技大學點名系統登入介面</title>
+</head>
+<body>
+    @* @using特點運用完,方法就釋放掉了 *@
+    @* @using(要使用的對象){具體要執行的代碼}  *@
+    @*html方法表單     方法   ,控制器, 傳輸方式*@
+    <div id="login-box">
+        <h1 class="head1">
+            <img src="~/Content/nkustnav.png" id="nkust" />
+            Login
+        </h1>
+        <form method="post" action="~/one/login" class="form">
+            <div class="item">
+                <img src="~/Content/user2.svg" />
+                <span>學號:</span>
+                <input name="stud" type="text" placeholder="user">
+            </div>
+            <div class="item">
+                <img src="~/Content/key1.svg" />
+                <span>密碼:</span>
+                <input name="Pwd" type="password" placeholder="Password">
+            </div>
+            <p>@ViewBag.Error</p>
+            <input  type="submit" value="登入" class="bnt bin-default" id="button" />
+        </form>
+    </div>
+
+</body>
+</html>

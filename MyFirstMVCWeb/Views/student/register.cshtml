@@ -1,0 +1,265 @@
+﻿@using MyFirstMVCWeb.Models
+@{
+    string status = Convert.ToString(Session["UserID"]); //登入者的學號
+    string name = Convert.ToString(Session["name"]);//登入者姓名
+    string namee = ViewBag.naME;
+    List<string> class1 = ViewBag.class1;
+    string class2 = ViewBag.class2;
+    string phone = ViewBag.phone;
+    if (ViewBag.messg2 != null)
+    {
+        <script>
+            alert(@ViewBag.messg2);
+        </script>
+    }
+    List<course1Table_1> wz = ViewBag.data2;
+    List<classromTable_1> wew = ViewBag.data4;
+    ViewBag.Title = "exit";
+    Layout = null;
+    List<allrollcallTable_1> w = ViewBag.all;
+    List<rollcallTable_1> n = ViewBag.data6;
+    List<string> wn = ViewBag.attend;//曠課數量
+    List<string> t = ViewBag.data5;
+    int i = 0;
+    int J = 0;
+    string select1 = ViewBag.se;
+    string select2 = ViewBag.se1;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <link rel="icon" href="~/Content/nkustnew.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
+    <title>國立高雄科技大學點名平台</title>
+    <style>
+        .accordion-button {
+            color: black;
+            background-color: rgb(87 167 213 / 0.63);
+        }
+
+        .input-group-append {
+            width: 100px;
+        }
+    </style>
+    <script>
+        function showToast(selector) {
+            selector.fadeTo(2000, 500).slideUp(500, function () {
+                selector.hide();
+            });
+        }
+    </script>
+
+
+</head>
+<body>
+
+    @if (TempData["messg1"] != null)
+    {
+        <script>alert(@TempData["messg1"])</script>
+        <div id="alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+            <strong>
+                @ViewBag.messg1
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    }
+    @if (TempData["messg2"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+            <strong>
+                @TempData["messg2"]
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    }
+
+    <div class="text-center">
+        <img src="~/Content/nkustnav2.png" height="70" width="400" />
+    </div>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="~/student/home" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/student/student" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">缺席紀錄</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/student/student" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">設定</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/one/LogOff" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登出</font></font></a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    個人資料
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <form class="row g-3 needs-validation" method="post" action="~/student/change">
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label">姓名</label>
+                            <input name="name" type="text" pattern="^[\u4E00-\u9FA5A-Za-z]{2,5}$" class="form-control" id="validationCustom01" value="@namee">
+                            <div class="invalid-feedback">
+                                請輸入姓名.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom02" class="form-label">連絡電話</label>
+                            <input name="phone" type="text" onkeyup="value=value.replace(/[^\d]/g,'') " pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" id="validationCustom02" value="@phone">
+                            <div class="invalid-feedback">
+                                請輸入電話格式.
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validationCustom04" class="form-label">班級</label>
+                            <select name="select1" class="form-select" id="validationCustom04">
+                                <option selected disabled value="@class2">@class2</option>
+                                @if (class1 != null)
+                                {
+                                    foreach (var z in class1)
+                                    {
+                                        <option value="@z">@z</option>
+                                    }
+                                }
+                            </select>
+                            <div class="invalid-feedback">
+                                請選擇班級
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button id="TetstText" class="btn btn-primary" type="submit">更改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    更改密碼
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <form method="post" action="~/student/change">
+                        <div class="input-group col-mb-6 glyphicon-text-width">
+                            <span class="input-group-text" id="inputGroup-sizing-default">
+                                新密碼
+                            </span>
+                            <input id="inputPassword" name="pass" type="password" pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$" required="required" oninput="setCustomValidity('');" oninvalid="setCustomValidity('請輸入正確的密碼格式:含英數至少六個字元');" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="change()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                                    </svg>
+                                    <span class="visually-hidden">Button</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="invalid-feedback">
+                            請輸入新密碼.
+                        </div>
+
+
+
+                        <div class="input-group col-mb-5 glyphicon-text-width">
+                            <span class="input-group-text" id="inputGroup-sizing-default">
+                                確認新密碼
+                            </span>
+                            <input id="ConfirmPassword" type="password" required="required" oninput="setCustomValidity('');" onblur="if(document.getElementById('inputPassword').value != document.getElementById('ConfirmPassword').value){setCustomValidity('密碼不吻合');}" onclick="ceq()" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="change1()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                                    </svg>
+                                    <span class="visually-hidden">Button</span>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                請再輸入一次新密碼.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button id="TetstText" class="btn btn-primary" type="submit">更改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var i = 0
+        function change() {
+            if (i == 1) {
+                document.getElementById("inputPassword").type = "password";
+                i = 0;
+            } else {
+                document.getElementById("inputPassword").type = "text";
+                i = 1;
+            }
+        };
+    </script>
+    <script>
+        var i = 0
+        function change1() {
+            if (i == 1) {
+                document.getElementById("ConfirmPassword").type = "password";
+                i = 0;
+            } else {
+                document.getElementById("ConfirmPassword").type = "text";
+                i = 1;
+            }
+        };
+    </script>
+    <script>
+
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()</script>
+
+
+</body>
+
+</html>

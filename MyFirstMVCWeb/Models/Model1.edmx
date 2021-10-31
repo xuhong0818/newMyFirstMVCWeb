@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="userModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="allrollcallTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="class1" Type="nvarchar" MaxLength="50" />
+          <Property Name="attend" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="class2" Type="nvarchar" MaxLength="50" />
+          <Property Name="data" Type="nvarchar" MaxLength="50" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="semester" Type="int" />
+        </EntityType>
+        <EntityType Name="classromTable_1">
+          <Key>
+            <PropertyRef Name="Course" />
+          </Key>
+          <Property Name="classroom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Course" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="teacher" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="week" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="course1Table_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="course" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="firstTable_2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="power" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="rollcallTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="class1" Type="nvarchar" MaxLength="50" />
+          <Property Name="attend" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="class2" Type="nvarchar" MaxLength="50" />
+          <Property Name="data" Type="nvarchar" MaxLength="50" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="semesterTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="semester" Type="nvarchar" MaxLength="50" />
+          <Property Name="data" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="student1Table_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="stud" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="class1" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="userModelStoreContainer">
+          <EntitySet Name="allrollcallTable_1" EntityType="Self.allrollcallTable_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="classromTable_1" EntityType="Self.classromTable_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course1Table_1" EntityType="Self.course1Table_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="firstTable_2" EntityType="Self.firstTable_2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rollcallTable_1" EntityType="Self.rollcallTable_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="semesterTable_1" EntityType="Self.semesterTable_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student1Table_1" EntityType="Self.student1Table_1" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="userModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="classromTable_1">
+          <Key>
+            <PropertyRef Name="Course" />
+          </Key>
+          <Property Name="classroom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="teacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="week" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="course1Table_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="firstTable_2">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="power" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="userEntities19" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="classromTable_1" EntityType="Self.classromTable_1" />
+          <EntitySet Name="course1Table_1" EntityType="Self.course1Table_1" />
+          <EntitySet Name="firstTable_2" EntityType="Self.firstTable_2" />
+          <EntitySet Name="allrollcallTable_1" EntityType="userModel.allrollcallTable_1" />
+          <EntitySet Name="rollcallTable_1" EntityType="userModel.rollcallTable_1" />
+          <EntitySet Name="semesterTable_1" EntityType="userModel.semesterTable_1" />
+          <EntitySet Name="student1Table_1" EntityType="userModel.student1Table_1" />
+        </EntityContainer>
+        <EntityType Name="allrollcallTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attend" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="semester" Type="Int32" />
+        </EntityType>
+        <EntityType Name="rollcallTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attend" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="semesterTable_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="semester" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="data" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="student1Table_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="stud" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="userModelStoreContainer" CdmEntityContainer="userEntities19">
+          <EntitySetMapping Name="classromTable_1">
+            <EntityTypeMapping TypeName="userModel.classromTable_1">
+              <MappingFragment StoreEntitySet="classromTable_1">
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="classroom" ColumnName="classroom" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="teacher" ColumnName="teacher" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course1Table_1">
+            <EntityTypeMapping TypeName="userModel.course1Table_1">
+              <MappingFragment StoreEntitySet="course1Table_1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="course" ColumnName="course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="firstTable_2">
+            <EntityTypeMapping TypeName="userModel.firstTable_2">
+              <MappingFragment StoreEntitySet="firstTable_2">
+                <ScalarProperty Name="power" ColumnName="power" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="allrollcallTable_1">
+            <EntityTypeMapping TypeName="userModel.allrollcallTable_1">
+              <MappingFragment StoreEntitySet="allrollcallTable_1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="class2" ColumnName="class2" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="attend" ColumnName="attend" />
+                <ScalarProperty Name="class1" ColumnName="class1" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rollcallTable_1">
+            <EntityTypeMapping TypeName="userModel.rollcallTable_1">
+              <MappingFragment StoreEntitySet="rollcallTable_1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="class2" ColumnName="class2" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="attend" ColumnName="attend" />
+                <ScalarProperty Name="class1" ColumnName="class1" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="semesterTable_1">
+            <EntityTypeMapping TypeName="userModel.semesterTable_1">
+              <MappingFragment StoreEntitySet="semesterTable_1">
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="student1Table_1">
+            <EntityTypeMapping TypeName="userModel.student1Table_1">
+              <MappingFragment StoreEntitySet="student1Table_1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="class1" ColumnName="class1" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="stud" ColumnName="stud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

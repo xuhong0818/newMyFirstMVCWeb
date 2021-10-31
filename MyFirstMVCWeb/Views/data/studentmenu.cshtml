@@ -1,0 +1,425 @@
+﻿@using MyFirstMVCWeb.Models
+@{
+    List<string> class1 = ViewBag.class1;
+
+    string teacher_name = Convert.ToString(Session["name"]);
+    List<classromTable_1> cla = ViewBag.cla;
+    List<student1Table_1> w = ViewBag.stu;
+    List<course1Table_1> co = ViewBag.coy;
+    ViewBag.Title = "exit";
+    Layout = null;
+    int i = 0;
+    int m = 0;
+    string course = ViewBag.course;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <link rel="icon" href="~/Content/nkustnew.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
+    <title>國立高雄科技大學點名平台</title>
+    <script>
+        function showToast(selector) {
+            selector.fadeTo(2000, 500).slideUp(500, function () {
+                selector.hide();
+            });
+        }
+        function colo1() {
+            document.getElementById("se").hidden = true;
+        }
+    </script>
+
+</head>
+<body onclick="colo1()">
+    <div id="aler" class="alert alert-warning alert-dismissible fade show" role="alert" hidden>
+        <strong>請輸入中文唷~</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+    <div id="ale" class="alert alert-warning alert-dismissible fade show" role="alert" hidden>
+        <strong id="str">請輸入電話號碼格式唷~</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+    @if (TempData["messg1"] != null)
+    {
+        <div id="se" class="alert alert-success alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+            <strong>
+                @TempData["messg1"]
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="text-center">
+        <img src="~/Content/nkustnav2.png" height="70" width="400" />
+    </div>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="~/data/home" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/data/studentmenu" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">課程名單</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/data/exit1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日課程點名單</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/data/one1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">點名紀錄</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/one/LogOff" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登出</font></font></a>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <select id="course" onclick="xx(this)" class="form-select form-select-lg mb-3  " aria-label=".form-select-lg example">
+        @if (course == null)
+        {
+            <option selected>請選擇課程</option>
+            foreach (var z in cla)
+            {
+                if (z.teacher == teacher_name)
+                {
+
+                    <option value="@z.Course">@z.classroom</option>
+
+
+
+                }
+            }
+        }
+        @if (course != null)
+        {
+            <option value="exit1">請選擇課程</option>
+            foreach (var z in cla)
+            {
+                if (z.teacher == teacher_name)
+                {
+                    if (z.Course == course)
+                    {
+                        <option selected>@z.classroom</option>
+
+                    }
+                    else
+                    {
+                        <option value="@z.Course">@z.classroom</option>
+                    }
+                }
+            }
+        }
+    </select>
+
+    <button id="ad" class="btn btn-primary" onclick="ad(this)" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" disabled>
+        新增
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form id="addx" class="row g-3 needs-validation" method="post">
+                <div class="col-md-3">
+                    <label for="validationCustom01" class="form-label">學號</label>
+                    <input name="stud" type="text" pattern="\w{10}" class="form-control" id="validationCustom01" required>
+                    <div class="invalid-feedback">
+                        請輸入學號.
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom01" class="form-label">姓名</label>
+                    <input name="name" type="text" pattern="\W{3}" class="form-control" id="validationCustom01" required>
+                    <div class="invalid-feedback">
+                        請輸入姓名.
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom02" class="form-label">連絡電話</label>
+                    <input name="phone" type="text" pattern="\d{10,10}" minlength="10" maxlength="10" class="form-control" id="validationCustom02" required>
+                    <div class="invalid-feedback">
+                        請輸入電話格式.
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom04" class="form-label">班級</label>
+                    <select name="select1" class="form-select" id="validationCustom04" required>
+                        @if (class1 != null)
+                        {
+                            foreach (var z in class1)
+                            {
+                                <option value="@z">@z</option>
+                            }
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        請選擇班級
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button id="TetstText" class="btn btn-primary" type="submit">新增</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <form method="post" id="form1">
+
+
+
+        <table id="table1" class="table table-hover">
+            <thead class="thead1 ">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">學號</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">班級</th>
+                    <th scope="col">聯絡電話</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbo" class="tbody1">
+                @if (w != null)
+                {
+                    foreach (var se in co)
+                    {
+                        if (se.course == course)
+                        {
+                            <input type="hidden" name="course" value="@course" />
+                            foreach (var we in w)
+                            {
+                                if (we.stud == se.status)
+                                {
+                                    i = i + 1;
+                                    <tr>
+                                        <td id="i">@i</td>
+                                        <td>
+                                            <input type="text" id="name2" name="stud1" value="@we.stud" disabled />
+                                            <input type="hidden" id="name2" name="stud" value="@we.stud" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="name3" name="n1" value="@we.name" disabled />
+
+                                            <input type="hidden" id="name3" name="name1" value="@we.name" />
+
+                                        </td>
+                                        <td>
+                                            <input type="text" id="name4" name="class1" value="@we.class1" disabled />
+
+                                        </td>
+                                        <td>
+                                            <input type="text" id="name5" name="phone2" value="@we.phone" pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " disabled />
+                                        </td>
+                                        <td>
+                                            <button id="btn" type="button" class="btn btn-success" onclick="on(this)" value="">編輯</button>
+                                            <input id="send" type="submit" class="btn btn-success" onclick="ange1()" disabled value="儲存">
+                                            <input type="submit" class="btn btn-success" onclick="del()" value="刪除">
+
+                                        </td>
+
+                                    </tr>
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+    <script>
+        $('.alert').alert();
+
+    </script>
+    <script>
+        if (document.getElementById('table1').rows.length > 2) {
+            document.getElementById('ad').disabled = null;
+        }
+        function addx() {
+            var e = confirm("確定要新增!");
+            if (e == true) {
+                document.getElementById("form1").action = "add";
+            }
+        }
+        function ad(r) {
+            var x = document.getElementById("ad").innerText;
+            if (x == "收回") {
+                document.getElementById("ad").innerText = "新增"
+            } else {
+                document.getElementById("ad").innerText = "收回"
+            }
+
+        }
+
+
+        function on(r) {
+
+            
+            var i = r.parentNode.parentNode.rowIndex;
+            var x = document.getElementById('table1').rows[i].cells;
+            var z = document.createElement("input");
+            z.name = "name";
+            z.type = "text";
+            z.onblur = function () {
+                var value = z.value;
+
+                if (value.match(/[^\u3447-\uFA29]/ig)) {
+                    document.getElementById("aler").hidden = null;
+                    document.getElementById("send").disabled = true;
+
+                } else {
+                    document.getElementById("send").disabled = null;
+                    document.getElementById("aler").hidden = true;
+
+                }
+            };
+            document.getElementById("table1").rows[i].cells[2].appendChild(z);
+            var f = document.createElement("input");
+            f.name = "stud1";
+            f.type = "text";
+            f.onblur = function () {
+                var value = f.value;
+
+                if (value.match(/[^\u3447-\uFA29]/ig)) {
+                    document.getElementById("send").disabled = null;
+                    document.getElementById("aler").hidden = true;
+
+                } else {
+                    document.getElementById("ale").hidden = null;
+                    document.getElementById("str").innerText = "請輸入正確格式!";
+                    document.getElementById("send").disabled = true;
+
+                }
+            };
+            document.getElementById("table1").rows[i].cells[1].appendChild(f);
+            var j = document.createElement("input");
+            j.name = "class17";
+            j.type = "text";
+            j.onblur = function () {
+                var value = j.value;
+
+                if (value.match(/[^\u3447-\uFA29]/)) {
+                    document.getElementById("ale").hidden = null;
+                    document.getElementById("str").innerText = "請輸入正確格式!";
+                    document.getElementById("send").disabled = true;
+
+                } else {
+
+                    document.getElementById("send").disabled = null;
+                    document.getElementById("aler").hidden = true;
+                }
+            };
+            document.getElementById("table1").rows[i].cells[3].appendChild(j);
+            var h = document.createElement("input");
+            h.name = "phone";
+            h.type = "text";
+            h.onblur = function () {
+                var value = h.value;
+                if (value.length > 10) {
+                    document.getElementById("send").disabled = true;
+                    document.getElementById("ale").hidden = null;
+                    document.getElementById("str").innerText = "請輸入電話號碼長度等於10的正確格式!";
+
+                }
+                if (value.match("^[0-9]*[1-9][0-9]*$")) {
+                    document.getElementById("send").disabled = null;
+                    document.getElementById("aler1").hidden = true;
+                } else {
+
+                    document.getElementById("aler1").hidden = null;
+                    document.getElementById("send").disabled = true;
+
+                }
+            }
+            document.getElementById("table1").rows[i].cells[4].appendChild(h);
+
+
+
+            //document.getElementById("name3").disabled = null;
+
+            //document.getElementById("name2").disabled = null;
+            //document.getElementById("name4").disabled = null;
+            //document.getElementById("name5").disabled = null;
+            document.getElementById("send").disabled = false;
+            document.getElementById("btn").innerText = "取消";
+
+            //document.getElementById("i").contentEditable = true;
+
+        }
+
+        function ange1() {
+            var e = confirm("確定要更改!");
+            if (e == true) {
+                document.getElementById("form1").action = "ange";
+            }
+            document.getElementById("name2").disabled = false;
+            document.getElementById("name3").disabled = false;
+            document.getElementById("name4").disabled = false;
+            document.getElementById("ange1").disabled = true;
+
+
+
+        }
+        function del() {
+            var e = confirm("確定要刪除!");
+            if (e == true) {
+                document.getElementById("form1").action = "delsy";
+            }
+        }
+
+    </script>
+    <script>
+        function xx(value) {
+            var selectedOption = value.options[value.selectedIndex];
+            if (selectedOption.value == "ch2") {
+                location.href = "ch2";
+
+            } if (selectedOption.value == "en1") {
+                location.href = "en1";
+
+            } if (selectedOption.value == "ma3") {
+                location.href = "ma3";
+
+            } if (selectedOption.value == "exit1") {
+                location.href = "exit1";
+
+            }
+        }
+    </script>
+
+    <script>
+
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()</script>
+
+</body>
+
+</html>

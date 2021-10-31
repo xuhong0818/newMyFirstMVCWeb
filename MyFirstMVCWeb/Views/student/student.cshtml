@@ -1,0 +1,317 @@
+﻿@using MyFirstMVCWeb.Models
+@{
+    string status = Convert.ToString(Session["UserID"]); ;//登入者的學號
+    List<course1Table_1> wz = ViewBag.data2;
+    List<classromTable_1> wew = ViewBag.data4;
+    ViewBag.Title = "exit";
+    Layout = null;
+    List<allrollcallTable_1> w = ViewBag.all;
+    List<rollcallTable_1> n = ViewBag.data6;
+    List<string> wn = ViewBag.attend;//曠課數量
+    List<string> t = ViewBag.data5;
+    int i = 0;
+    int J = 0;
+    string select1 = ViewBag.se;
+    string select2 = ViewBag.se1;
+    string class1 = ViewBag.class1;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <link rel="icon" href="~/Content/nkustnew.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" integrity="sha384-x/dM1/mfnt69GilOQS8KO9zRDQIhUtSGo/DBZmJbStD8ZRZbCLDwfuU3mSDkzSJ3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <title>國立高雄科技大學點名平台</title>
+</head>
+<body>
+
+    <div class="text-center">
+        <img src="~/Content/nkustnav2.png" height="70" width="400" />
+    </div>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="~/student/home" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/student/student" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">缺席紀錄</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/student/register" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">設定</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/one/LogOff" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登出</font></font></a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <h1 class="display-5">今日點名狀態</h1>
+    <table id="table1" class="table table-hover">
+
+        <thead class="thead1 ">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">日期</th>
+                <th scope="col">學號</th>
+                <th scope="col">姓名</th>
+                <th scope="col">班級</th>
+                <th scope="col">出席</th>
+                <th scope="col">時間</th>
+                <th scope="col">課程</th>
+
+            </tr>
+        </thead>
+        <tbody class="tbody1">
+            @if (n != null)
+            {
+                foreach (var x in n)
+                {
+                    if (x.status == status)
+                    {
+                        J = J + 1;
+                        if (x.attend == "未到課")
+                        {
+                            <tr class="table-danger">
+                                <td>@J</td>
+                                <td>@x.data</td>
+                                <td>@x.status</td>
+                                <td>@x.name</td>
+                                <td>@x.class1</td>
+                                <td>@x.attend</td>
+                                <td>@x.time</td>
+                                @foreach (var eq in wew)
+                                {
+                                    if (x.class2 == eq.Course)
+                                    {
+                                        <td>@eq.classroom</td>
+
+                                    }
+                                }
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@J</td>
+                                <td>@x.data</td>
+                                <td>@x.status</td>
+                                <td>@x.name</td>
+                                <td>@x.class1</td>
+                                <td>@x.attend</td>
+                                <td>@x.time</td>
+                                @foreach (var eq in wew)
+                                {
+                                    if (x.class2 == eq.Course)
+                                    {
+                                        <td>@eq.classroom</td>
+
+                                    }
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+    <form name="form1" method="post" action="~/student/student1">
+        <select name="select1" class="form-control form-control-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>請選擇課程</option>
+            @foreach (var z in wz)
+            {
+                if (z.status == status)
+                {
+                    foreach (var we in wew)
+                    {
+                        if (we.Course == z.course)
+                        {
+                            if (we.Course == select1)
+                            {
+                                <option value="@z.course" selected>@we.classroom</option>
+                            }
+                            else
+                            {
+                                <option value="@z.course">@we.classroom</option>
+                            }
+                        }
+                    }
+
+                }
+            }
+        </select>
+        <select name="select2" class="form-control form-control-lg mb-3" aria-label=".form-select-lg example">
+            @if (select2 == null)
+            {
+                <option selected>選擇出席狀態</option>
+                <option value="未到課">未到課</option>
+                <option value="補點">補點</option>
+            }
+
+
+            @if (select2 == "未到課")
+            {
+                <option>選擇出席狀態</option>
+                <option value="未到課" selected>未到課</option>
+                <option value="補點">補點</option>
+            }
+            @if (select2 == "補點")
+            {
+                <option>選擇出席狀態</option>
+                <option value="未到課">未到課</option>
+                <option value="補點" selected>補點</option>
+            }
+
+
+
+        </select>
+        <input type="submit" value="搜尋" class="btn btn-outline-primary">
+    </form>
+    @if (wn != null)
+    {
+        <h2 class="mb-10">
+            各科缺課次數
+            @foreach (var vc in wn)
+            {
+                <span class="badge bg-secondary">@vc</span>
+            }
+            。
+        </h2>
+
+    }
+    <table id="table1" class="table table-hover">
+        <thead class="thead1 ">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">日期</th>
+                <th scope="col">學號</th>
+                <th scope="col">姓名</th>
+                <th scope="col">班級</th>
+                <th scope="col">出席</th>
+                <th scope="col">時間</th>
+                <th scope="col">科目</th>
+
+            </tr>
+        </thead>
+        <tbody class="tbody1">
+            @if (w != null)
+            {
+                foreach (var a in w)
+                {
+                    if (a.class2 == select1)
+                    {
+                        if (a.status == status)
+                        {
+                            if (a.attend == select2)
+                            {
+                                i += 1;
+                                if (a.attend == "未到課")
+                                {
+
+                                    <tr class="table-danger">
+                                        <td>@i</td>
+                                        <td>@a.data</td>
+                                        <td>@a.status</td>
+                                        <td>@a.name</td>
+                                        <td>@a.class1</td>
+                                        <td>@a.attend</td>
+                                        <td>@a.time</td>
+                                        <td>@class1</td>
+                                    </tr>
+                                }
+                                else
+                                {
+
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@a.data</td>
+                                        <td>@a.status</td>
+                                        <td>@a.name</td>
+                                        <td>@a.class1</td>
+                                        <td>@a.attend</td>
+                                        <td>@a.time</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    @if (i == 0)
+    {
+        if (select2 != null)
+        {
+            <p class="text-danger">沒有"@select2" 資料</p>
+        }
+    }
+    <p>系統會自動保存，所有紀錄</p>
+    <script>
+        //查找表格的<th>元素，讓它們可單擊
+        function makeSortable(table) {
+            var headers = table.getElementsByTagName("th"); /*th所有行*/
+            for (var i = 0; i < headers.length; i++) {
+                (function (n) {
+                    var flag = false;
+                    headers[n].onclick = function () {
+                        // sortrows(table,n);
+                        var tbody = table.tBodies[0];//第一個<tbody>
+                        var rows = tbody.getElementsByTagName("tr");//tbody中的所有行
+                        rows = Array.prototype.slice.call(rows, 0);//真實數組中的快照
+                        //slice(tbody中的所有行~0)獲取元素
+                        //基於第n個<td>元素的值對行排序
+                        rows.sort(function (row1, row2) {
+                            var cell1 = row1.getElementsByTagName("td")[n];//獲得第n個單元格
+                            var cell2 = row2.getElementsByTagName("td")[n];
+                            var val1 = cell1.textContent || cell1.innerText;//獲得文本內容
+                            var val2 = cell2.textContent || cell2.innerText;
+
+                            if (val1 < val2) {
+
+                                return -1;
+
+                            } else if (val1 > val2) {
+
+                                return 1;
+                            } else {
+                                return 0;
+
+
+                            }
+                        });
+                        if (flag) {
+                            rows.reverse();
+                        }
+                        //在tbody中按它們的順序把行添加到最后
+                        //這將自動把它們從當前位置移走，故沒必要預先刪除它們
+                        //如果<tbody>還包含了除了<tr>的任何其他元素，這些節點將會懸浮到頂部位置
+                        for (var i = 0; i < rows.length; i++) {
+                            tbody.appendChild(rows[i]);
+
+                        }
+
+                        flag = !flag;
+                    }
+                }(i));
+            }
+        }
+
+        window.onload = function () {
+            var table = document.getElementsByTagName("table")[0];
+            makeSortable(table);
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
