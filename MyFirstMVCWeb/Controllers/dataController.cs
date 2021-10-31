@@ -39,6 +39,7 @@ namespace MyFirstMVCWeb.Controllers
         {
             if (Session["name"] == null)
             {
+                int q = 0;
                 return RedirectToAction("register", "one");
             }
             return View();
