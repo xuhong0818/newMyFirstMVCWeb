@@ -39,6 +39,7 @@ namespace MyFirstMVCWeb.Controllers
         {
             if (Session["name"] == null)
             {
+                int q = 0;
                 return RedirectToAction("register", "one");
             }
             return View();
@@ -48,6 +49,11 @@ namespace MyFirstMVCWeb.Controllers
         {
             ViewBag.course = b;
             string teacher_name = Convert.ToString(Session["name"]);
+            teacher1 te = db.teacher1.FirstOrDefault(t => t.teachername == teacher_name);
+            if (te != null)
+            {
+                ViewBag.teacherid = te.teacher;
+            }
             List<classromTable_1> cla = db.classromTable_1.ToList();
             ViewBag.cla = cla;
             List<student1Table_1> st = db.student1Table_1.ToList();

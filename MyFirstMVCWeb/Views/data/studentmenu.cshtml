@@ -12,6 +12,7 @@
     int m = 0;
     string course = ViewBag.course;
 }
+@*此頁面的新增bug都解決了*@
 <!DOCTYPE html>
 
 <html>
@@ -40,20 +41,16 @@
     </script>
 
 </head>
-<body onclick="colo1()">
-    <div id="aler" class="alert alert-warning alert-dismissible fade show" role="alert" hidden>
-        <strong>請輸入中文唷~</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-    </div>
-    <div id="ale" class="alert alert-warning alert-dismissible fade show" role="alert" hidden>
-        <strong id="str">請輸入電話號碼格式唷~</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-    </div>
+<body>
     @if (TempData["messg1"] != null)
     {
-        <div id="se" class="alert alert-success alert-dismissible fade show" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </symbol>
+        </svg>
+
+        <div id="se" class="alert alert-danger alert-dismissible fade show" role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
             <strong>
                 @TempData["messg1"]
@@ -61,6 +58,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
+
+
     <div class="text-center">
         <img src="~/Content/nkustnav2.png" height="70" width="400" />
     </div>
@@ -80,6 +79,9 @@
                     <a href="~/data/one1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">點名紀錄</font></font></a>
                 </li>
                 <li class="nav-item">
+                    <a href="~/data/one1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">設定</font></font></a>
+                </li>
+                <li class="nav-item">
                     <a href="~/one/LogOff" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登出</font></font></a>
                 </li>
             </ul>
@@ -91,7 +93,7 @@
             <option selected>請選擇課程</option>
             foreach (var z in cla)
             {
-                if (z.teacher == teacher_name)
+                if (z.teacher == ViewBag.teacherid)
                 {
 
                     <option value="@z.Course">@z.classroom</option>
@@ -106,7 +108,7 @@
             <option value="exit1">請選擇課程</option>
             foreach (var z in cla)
             {
-                if (z.teacher == teacher_name)
+                if (z.teacher == ViewBag.teacherid)
                 {
                     if (z.Course == course)
                     {
@@ -122,12 +124,13 @@
         }
     </select>
 
-    <button id="ad" class="btn btn-primary" onclick="ad(this)" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" disabled>
+    <button id="ad" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" disabled>
         新增
     </button>
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
             <form id="addx" class="row g-3 needs-validation" method="post">
+                <input type="hidden" name="course" value="@course" />
                 <div class="col-md-3">
                     <label for="validationCustom01" class="form-label">學號</label>
                     <input name="stud" type="text" pattern="\w{10}" class="form-control" id="validationCustom01" required>
@@ -165,7 +168,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button id="TetstText" class="btn btn-primary" type="submit">新增</button>
+                    <button id="TetstText" class="btn btn-primary" onclick="addx(this)" type="submit">新增</button>
                 </div>
             </form>
         </div>
@@ -219,12 +222,15 @@
                                             <input type="text" id="name5" name="phone2" value="@we.phone" pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " disabled />
                                         </td>
                                         <td>
-                                            <button id="btn" type="button" class="btn btn-success" onclick="on(this)" value="">編輯</button>
+                                            <input name="ewqeqwq" id="btn" type="button" class="btn btn-success" onclick="on(this)" value="編輯">
+                                        </td>
+                                        <td>
                                             <input id="send" type="submit" class="btn btn-success" onclick="ange1()" disabled value="儲存">
+                                        </td>
+                                        <td>
                                             <input type="submit" class="btn btn-success" onclick="del()" value="刪除">
 
                                         </td>
-
                                     </tr>
 
 
@@ -247,7 +253,7 @@
         function addx() {
             var e = confirm("確定要新增!");
             if (e == true) {
-                document.getElementById("form1").action = "add";
+                document.getElementById("addx").action = "adk";
             }
         }
         function ad(r) {
@@ -259,21 +265,40 @@
             }
 
         }
+        function on1(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementsByName("stud12")[0].remove();
+            document.getElementsByName("class17")[0].remove();
+            document.getElementsByName("phone54")[0].remove();
+            document.getElementsByName("name29")[0].remove();
+            document.getElementById("send").disabled = true;
+            //document.getElementById("btn2").hidden = true;
+            //document.getElementById("btn").hidden = null;
+
+
+           /*以下為更改編輯按鈕動作*/
+            r.value = "編輯";
+            r.setAttribute('onclick', 'on(this)');
+        }
 
 
         function on(r) {
-
-            
             var i = r.parentNode.parentNode.rowIndex;
+
+            document.getElementById("send").disabled = false;
+            /*以下為更改編輯按鈕動作*/
+            r.value = "取消";
+            r.setAttribute('onclick', 'on1(this)');
+            
             var x = document.getElementById('table1').rows[i].cells;
             var z = document.createElement("input");
-            z.name = "name";
+            z.name = "name29";
             z.type = "text";
             z.onblur = function () {
                 var value = z.value;
 
                 if (value.match(/[^\u3447-\uFA29]/ig)) {
-                    document.getElementById("aler").hidden = null;
+                    ("aler").hidden = null;
                     document.getElementById("send").disabled = true;
 
                 } else {
@@ -284,7 +309,7 @@
             };
             document.getElementById("table1").rows[i].cells[2].appendChild(z);
             var f = document.createElement("input");
-            f.name = "stud1";
+            f.name = "stud12";
             f.type = "text";
             f.onblur = function () {
                 var value = f.value;
@@ -320,7 +345,7 @@
             };
             document.getElementById("table1").rows[i].cells[3].appendChild(j);
             var h = document.createElement("input");
-            h.name = "phone";
+            h.name = "phone54";
             h.type = "text";
             h.onblur = function () {
                 var value = h.value;
@@ -338,23 +363,13 @@
                     document.getElementById("aler1").hidden = null;
                     document.getElementById("send").disabled = true;
 
+
                 }
             }
             document.getElementById("table1").rows[i].cells[4].appendChild(h);
-
-
-
-            //document.getElementById("name3").disabled = null;
-
-            //document.getElementById("name2").disabled = null;
-            //document.getElementById("name4").disabled = null;
-            //document.getElementById("name5").disabled = null;
-            document.getElementById("send").disabled = false;
-            document.getElementById("btn").innerText = "取消";
-
-            //document.getElementById("i").contentEditable = true;
-
+            document.getElementById("btn")[0].remove();
         }
+
 
         function ange1() {
             var e = confirm("確定要更改!");
@@ -423,3 +438,16 @@
 </body>
 
 </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

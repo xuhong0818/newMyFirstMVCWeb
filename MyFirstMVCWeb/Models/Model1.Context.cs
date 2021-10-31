@@ -32,5 +32,6 @@ namespace MyFirstMVCWeb.Models
         public virtual DbSet<rollcallTable_1> rollcallTable_1 { get; set; }
         public virtual DbSet<semesterTable_1> semesterTable_1 { get; set; }
         public virtual DbSet<student1Table_1> student1Table_1 { get; set; }
+        public virtual DbSet<teacher1> teacher1 { get; set; }
     }
 }

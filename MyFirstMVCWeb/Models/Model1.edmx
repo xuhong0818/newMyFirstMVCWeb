@@ -78,6 +78,14 @@
           <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="teacher1">
+          <Key>
+            <PropertyRef Name="teacher" />
+          </Key>
+          <Property Name="teacher" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="teachername" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityContainer Name="userModelStoreContainer">
           <EntitySet Name="allrollcallTable_1" EntityType="Self.allrollcallTable_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="classromTable_1" EntityType="Self.classromTable_1" Schema="dbo" store:Type="Tables" />
@@ -86,6 +94,7 @@
           <EntitySet Name="rollcallTable_1" EntityType="Self.rollcallTable_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="semesterTable_1" EntityType="Self.semesterTable_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="student1Table_1" EntityType="Self.student1Table_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teacher1" EntityType="Self.teacher1" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -127,6 +136,7 @@
           <EntitySet Name="rollcallTable_1" EntityType="userModel.rollcallTable_1" />
           <EntitySet Name="semesterTable_1" EntityType="userModel.semesterTable_1" />
           <EntitySet Name="student1Table_1" EntityType="userModel.student1Table_1" />
+          <EntitySet Name="teacher1" EntityType="userModel.teacher1" />
         </EntityContainer>
         <EntityType Name="allrollcallTable_1">
           <Key>
@@ -172,6 +182,14 @@
           <Property Name="class1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="teacher1">
+          <Key>
+            <PropertyRef Name="teacher" />
+          </Key>
+          <Property Name="teacher" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teachername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -256,6 +274,15 @@
                 <ScalarProperty Name="class1" ColumnName="class1" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="stud" ColumnName="stud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teacher1">
+            <EntityTypeMapping TypeName="userModel.teacher1">
+              <MappingFragment StoreEntitySet="teacher1">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="teachername" ColumnName="teachername" />
+                <ScalarProperty Name="teacher" ColumnName="teacher" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
