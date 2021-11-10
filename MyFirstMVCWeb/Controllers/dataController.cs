@@ -33,7 +33,7 @@ namespace MyFirstMVCWeb.Controllers
 {
     public class DataController : Controller
     {
-        userEntities19 db = new userEntities19();
+        userEntities20 db = new userEntities20();
 
         public ActionResult Home()//補點名(解決) 按完補點名回到頁面
         {

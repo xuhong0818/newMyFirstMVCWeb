@@ -233,6 +233,7 @@
     </Content>
     <Content Include="Views\student\register.cshtml" />
     <Content Include="Views\student\home.cshtml" />
+    <Content Include="Views\data\ViewPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

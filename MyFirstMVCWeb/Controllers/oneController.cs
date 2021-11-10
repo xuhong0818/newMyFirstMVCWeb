@@ -11,7 +11,7 @@ namespace MyFirstMVCWeb.Controllers
     public class oneController : Controller
     {
         // GET: one
-        userEntities19 db = new userEntities19();
+        userEntities20 db = new userEntities20();
 
         public ActionResult LogOff()
         {//登出

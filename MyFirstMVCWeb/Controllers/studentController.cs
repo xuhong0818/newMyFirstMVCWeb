@@ -9,7 +9,7 @@ namespace MyFirstMVCWeb.Controllers
 {
     public class studentController : Controller
     {
-        userEntities19 db = new userEntities19();
+        userEntities20 db = new userEntities20();
 
         public ActionResult home()
         {
