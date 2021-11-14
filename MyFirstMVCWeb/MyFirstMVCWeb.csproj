@@ -228,11 +228,10 @@
     <Content Include="Views\data\exit1.cshtml" />
     <Content Include="Views\data\Home.cshtml" />
     <Content Include="Views\student\student.cshtml" />
-    <Content Include="..\..\12\studentmenu.cshtml">
-      <Link>Views\data\studentmenu.cshtml</Link>
-    </Content>
     <Content Include="Views\student\register.cshtml" />
     <Content Include="Views\student\home.cshtml" />
+    <Content Include="Views\data\studentmenu.cshtml" />
+    <Content Include="Views\data\teacherregister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

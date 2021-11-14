@@ -117,7 +117,7 @@ namespace MyFirstMVCWeb.Controllers
             string status = Convert.ToString(Session["UserID"]); //登入者的學號
             string name = Convert.ToString(Session["name"]);
             student1Table_1 we = db.student1Table_1.FirstOrDefault(t => t.stud == status);
-            ViewBag.naME = name;
+            ViewBag.naME = we.name;
             List<student1Table_1> st = db.student1Table_1.ToList();
             List<string> class1 = new List<string>();
             foreach (var e in st)
@@ -148,17 +148,17 @@ namespace MyFirstMVCWeb.Controllers
             string sw = "";
             if (we != null)
             {
-                if (name != null)
+                if (name != "" && name != null)
                 {
                     we.name = name;
 
                 }
-                if (select1 != null)
+                if (select1 != null && select1 != "")
                 {
                     we.class1 = select1;
 
                 }
-                if (phone != null)
+                if (phone != "" && phone != null)
                 {
                     if (phone.Length != 0)
                     {
@@ -189,16 +189,17 @@ namespace MyFirstMVCWeb.Controllers
             firstTable_2 e = db.firstTable_2.FirstOrDefault(t => t.user == status);
             if (e != null)
             {
-                if (name != null)
+                if (name != "" && name != null)
                 {
                     e.name = name;
                 }
-                if (pass != null)
+                if (pass != null && pass != "")
                 {
                     firstTable_2 x = db.firstTable_2.FirstOrDefault(t => t.password == pass);
                     if (x == null)
                     {
                         e.password = pass;
+                        TempData["messg3"] = "更改成功";
                     }
                     else
                     {

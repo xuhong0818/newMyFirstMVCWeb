@@ -1,29 +1,8 @@
 ﻿@using MyFirstMVCWeb.Models
 @{
     Layout = null;
-    string status = Convert.ToString(Session["UserID"]); //登入者的學號
     string namee = ViewBag.naME;
-    List<string> class1 = ViewBag.class1;
-    string class2 = ViewBag.class2;
     string phone = ViewBag.phone;
-    if (ViewBag.messg2 != null)
-    {
-        <script>
-            alert(@ViewBag.messg2);
-        </script>
-    }
-    List<course1Table_1> wz = ViewBag.data2;
-    List<classromTable_1> wew = ViewBag.data4;
-    ViewBag.Title = "exit";
-    Layout = null;
-    List<allrollcallTable_1> w = ViewBag.all;
-    List<rollcallTable_1> n = ViewBag.data6;
-    List<string> wn = ViewBag.attend;//曠課數量
-    List<string> t = ViewBag.data5;
-    int i = 0;
-    int J = 0;
-    string select1 = ViewBag.se;
-    string select2 = ViewBag.se1;
 }
 <!DOCTYPE html>
 
@@ -80,9 +59,10 @@
     @if (TempData["messg3"] != null)
     {
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
             </symbol>
+
         </svg>
 
         <div id="se" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -102,13 +82,19 @@
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a href="~/student/home" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
+                    <a href="~/data/home" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
                 </li>
                 <li class="nav-item">
-                    <a href="~/student/student" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">缺席紀錄</font></font></a>
+                    <a href="~/data/studentmenu" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">課程名單</font></font></a>
                 </li>
                 <li class="nav-item">
-                    <a href="~/student/student" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">設定</font></font></a>
+                    <a href="~/data/exit1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日課程點名單</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/data/one1" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">點名紀錄</font></font></a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/data/teacherregister" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">設定</font></font></a>
                 </li>
                 <li class="nav-item">
                     <a href="~/one/LogOff" class="nav-link"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登出</font></font></a>
@@ -126,7 +112,7 @@
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <form class="row g-3 needs-validation" method="post" action="~/student/change">
+                    <form class="row g-3 needs-validation" method="post" action="~/data/teacherchange">
                         <div class="col-md-4">
                             <label for="validationCustom01" class="form-label">姓名</label>
                             <input name="name" type="text" pattern="^[\u4E00-\u9FA5A-Za-z]{2,5}$" class="form-control" id="validationCustom01" value="@namee">
@@ -136,25 +122,9 @@
                         </div>
                         <div class="col-md-4">
                             <label for="validationCustom02" class="form-label">連絡電話</label>
-                            <input name="phone" type="text" onkeyup="value=value.replace(/[^\d]/g,'') " pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" id="validationCustom02" value="@phone">
+                            <input name="phone" type="text" οnkeyup="this.value=this.value.replace(/\D/g,'') " pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" id="validationCustom02" value="@phone">
                             <div class="invalid-feedback">
                                 請輸入電話格式.
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="validationCustom04" class="form-label">班級</label>
-                            <select name="select1" class="form-select" id="validationCustom04">
-                                <option selected disabled value="@class2">@class2</option>
-                                @if (class1 != null)
-                                {
-                                    foreach (var z in class1)
-                                    {
-                                        <option value="@z">@z</option>
-                                    }
-                                }
-                            </select>
-                            <div class="invalid-feedback">
-                                請選擇班級
                             </div>
                         </div>
                         <div class="col-12">
@@ -172,7 +142,7 @@
             </h2>
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                    <form method="post" action="~/student/change">
+                    <form method="post" action="~/data/teacherchange">
                         <div class="input-group col-mb-6 glyphicon-text-width">
                             <span class="input-group-text" id="inputGroup-sizing-default">
                                 新密碼

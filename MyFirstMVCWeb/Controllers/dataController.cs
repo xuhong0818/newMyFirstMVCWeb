@@ -446,7 +446,7 @@ namespace MyFirstMVCWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult ange(string stud, string name, string class17, string stud1, string phone, string name1, string course, string re)
+        public ActionResult ange(string stud, string name29, string class17, string stud12, string phone54, string name1, string course, string re)
         {
             string b = course;
             //ViewBag.course = b;
@@ -458,62 +458,67 @@ namespace MyFirstMVCWeb.Controllers
             ViewBag.coy = coy;
             student1Table_1 e = new student1Table_1();
 
-            student1Table_1 w = db.student1Table_1.FirstOrDefault(t => t.stud == stud);
-            foreach (var s in st)
-                if (s.stud == stud)
-                {
-                    if (s.name == name1)
+            student1Table_1 w = db.student1Table_1.FirstOrDefault(t => t.stud == stud12);
+            if (w == null)
+            {
+                foreach (var s in st)
+                    if (s.stud == stud)
                     {
-                        if (stud1 != null)
+                        if (s.name == name1)
                         {
-                            s.name = name;
+                            if (stud12 != "")
+                            {
+                                s.stud = stud12;
 
-                        }
-                        if (name != null)
-                        {
-                            s.name = name;
+                            }
+                            if (name29 != "")
+                            {
+                                s.name = name29;
 
-                        }
-                        if (class17 != null)
-                        {
-                            s.class1 = class17;
+                            }
+                            if (class17 != "")
+                            {
+                                s.class1 = class17;
 
-                        }
-                        if (phone != null)
-                        {
-                            s.phone = phone;
+                            }
+                            if (phone54 != "")
+                            {
+                                s.phone = phone54;
 
+                            }
+                            db.SaveChanges();
                         }
-                        db.SaveChanges();
+
                     }
-                    else
-                    {
-                        ViewBag.messg1 = "學號與人重複,請重新確認更改學號";
-                        return RedirectToAction("studentmenu", new { b });
-                    }
-                }
-
+            }
+            else
+            {
+                TempData["messg2"] = "學號與人重複,請重新確認更改學號";
+                return RedirectToAction("studentmenu", new { b });
+            }
 
             foreach (var c in coy)
             {
                 if (c.status == stud)
                 {
-                    c.status = stud1;
-                    db.SaveChanges();
+                    if (stud12 != "")
+                    {
+                        c.status = stud12;
+                        db.SaveChanges();
+                    }
                 }
-
             }
             firstTable_2 z1 = db.firstTable_2.FirstOrDefault(t => t.user == stud);
             if (z1 != null)
             {
-                if (stud1 != null)
+                if (stud12 != "")
                 {
-                    z1.user = stud1;
+                    z1.user = stud12;
 
                 }
-                if (name != null)
+                if (name29 != "")
                 {
-                    z1.name = name;
+                    z1.name = name29;
 
                 }
                 db.SaveChanges();
@@ -525,24 +530,23 @@ namespace MyFirstMVCWeb.Controllers
         public ActionResult delsy(string stud, string course)
         {
             string b = course;
-            var w1 = Request.UrlReferrer.Query;
-            int c = 0;
-            string sb = "";
-            foreach (var zw in w1)
-            {
-                c += 1;
-                if (c > 7)
-                {
-                    sb += zw.ToString();
-                }
-            }
+            //var w1 = Request.UrlReferrer.Query;
+            //int c = 0;
+            //string sb = "";
+            //foreach (var zw in w1)
+            //{
+            //    c += 1;
+            //    if (c > 7)
+            //    {
+            //        sb += zw.ToString();
+            //    }
+            //}
             List<course1Table_1> coy = db.course1Table_1.ToList();
-            student1Table_1 e = new student1Table_1();
             foreach (var co in coy)
             {
                 if (co.status == stud)
                 {
-                    if (co.course == sb)
+                    if (co.course == course)
                     {
                         TempData["messg1"] = "刪除成功!";
                         db.course1Table_1.Remove(co);
@@ -554,7 +558,132 @@ namespace MyFirstMVCWeb.Controllers
             return RedirectToAction("studentmenu", new { b });
         }
 
+        [HttpPost]
+        public ActionResult adk(string course, string stud, string name, string phone, string select1)
+        {
+            string b = course;
+            student1Table_1 st = db.student1Table_1.FirstOrDefault(t => t.stud == stud);
+            if (st == null)
+            {
+                student1Table_1 w = new student1Table_1();
+                w.stud = stud;
+                w.name = name;
+                w.class1 = select1;
+                w.phone = phone;
+                db.student1Table_1.Add(w);
+                db.SaveChanges();
+            }
+
+            course1Table_1 q = new course1Table_1();
+            q.status = stud;
+            q.course = course;
+            db.course1Table_1.Add(q);
+            db.SaveChanges();
+
+            firstTable_2 f1 = db.firstTable_2.FirstOrDefault(t => t.user == stud);
+            if (f1 == null)
+            {
+                firstTable_2 f = new firstTable_2();
+                f.user = stud;
+                f.password = "x" + stud + "x";
+                f.name = name;
+                f.power = "student";
+                db.firstTable_2.Add(f);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("studentmenu", new { b });
+        }
+
+        public ActionResult teacherregister()
+        {
+            string user = Convert.ToString(Session["UserID"]);
+
+            firstTable_2 we = db.firstTable_2.FirstOrDefault(t => t.user == user);
+            if (we != null)
+            {
+                ViewBag.naME = we.name;
+                teacher1 te = db.teacher1.FirstOrDefault(t => t.teachername == we.name);
+                if (te != null)
+                {
+                    ViewBag.phone = te.phone;
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult teacherchange(string name, string phone, string pass)
+        {
+            string user = Convert.ToString(Session["UserID"]); //登入者的號
+            firstTable_2 we = db.firstTable_2.FirstOrDefault(t => t.user == user);
+            if (we != null)
+            {
+                if (name != "" && name != null)
+                {
+                    teacher1 te = db.teacher1.FirstOrDefault(t => t.teachername == we.name);
+                    if (te != null)
+                    {
+                        te.teachername = name;
+                    }
+                    we.name = name;
+                    TempData["messg3"] = "更改成功";
+
+                }
+                if (phone != "" && phone != null)
+                {
+                    if (phone.Length != 0)
+                    {
+                        teacher1 te = db.teacher1.FirstOrDefault(t => t.phone == phone);
+                        student1Table_1 st = db.student1Table_1.FirstOrDefault(t => t.phone == phone);
+                        if (te != null)
+                        {
+                            if (te.teachername != name)
+                            {
+                                TempData["messg2"] = "你的電話號碼與人重複";
+
+                            }
+                        }
+                        else
+                        {
+                            if (st == null)
+                            {
+                                te.phone = phone;
+                                TempData["messg3"] = "更改成功";
+                            }
+                        }
+                    }
+
+                }
+
+                db.SaveChanges();
+            }
+            if (pass != null && pass != "")
+            {
+                firstTable_2 x = db.firstTable_2.FirstOrDefault(t => t.password == pass);
+                if (x == null)
+                {
+                    firstTable_2 a = db.firstTable_2.FirstOrDefault(t => t.user == user);
+                    if (a != null)
+                    {
+                        a.password = pass;
+                        TempData["messg3"] = "更改成功";
+                    }
+
+                }
+                else
+                {
+                    TempData["messg2"] = "請輸入不一樣的密碼";
+
+                }
+            }
+            db.SaveChanges();
 
 
+            return RedirectToAction("teacherregister", "data");
+        }
     }
 }
+
+
+
+
