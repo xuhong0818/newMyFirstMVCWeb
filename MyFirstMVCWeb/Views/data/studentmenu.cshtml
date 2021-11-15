@@ -222,12 +222,12 @@
                                         <td id="i">@i</td>
                                         <td>
                                             <input type="text" id="name2" name="stud1" value="@we.stud" disabled />
-                                            <input type="hidden" id="name2" name="stud" value="@we.stud" />
+                                            <input type="checkbox" name="stud" class="btn btn-success" value="@we.stud">
                                         </td>
                                         <td>
                                             <input type="text" id="name3" name="n1" value="@we.name" disabled />
 
-                                            <input type="hidden" id="name3" name="name1" value="@we.name" />
+                                            <input type="checkbox" id="name3" name="name1" value="@we.name" />
 
                                         </td>
                                         <td>
@@ -241,11 +241,11 @@
                                             <input name="ewqeqwq" id="btn" type="button" class="btn btn-success" onclick="on(this)" value="編輯">
                                         </td>
                                         <td>
-                                            <input id="send" type="submit" class="btn btn-success" onclick="ange1()" disabled value="儲存">
+                                            <input id="send" type="submit" class="btn btn-success" onclick="ange1(this)" disabled value="儲存">
                                         </td>
                                         <td>
-                                            <input type="submit" class="btn btn-success" onclick="del()" value="刪除">
-
+                                            <input type="submit" class="btn btn-success" onclick="del(this)" value="刪除">
+                                            <input type="checkbox" name="status" class="btn btn-success" value="@we.stud">
                                         </td>
                                     </tr>
 
@@ -300,8 +300,9 @@
 
         function on(r) {
             var i = r.parentNode.parentNode.rowIndex;
-
-            document.getElementById("send").disabled = false;
+            var q2 = document.getElementById('table1');
+            var s = q2.rows[i].cells[6].children[0];
+            s.disabled = false;
             /*以下為更改編輯按鈕動作*/
             r.value = "取消";
             r.setAttribute('onclick', 'on1(this)');
@@ -315,10 +316,12 @@
 
                 if (value.match(/[^\u3447-\uFA29]/ig)) {
                     ("aler").hidden = null;
-                    document.getElementById("send").disabled = true;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = true;
 
                 } else {
-                    document.getElementById("send").disabled = null;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = null;
                     document.getElementById("aler").hidden = true;
 
                 }
@@ -331,13 +334,15 @@
                 var value = f.value;
 
                 if (value.match(/[^\u3447-\uFA29]/ig)) {
-                    document.getElementById("send").disabled = null;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = null;
                     document.getElementById("aler").hidden = true;
 
                 } else {
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入正確格式!";
-                    document.getElementById("send").disabled = true;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = true;
 
                 }
             };
@@ -351,11 +356,13 @@
                 if (value.match(/[^\u3447-\uFA29]/)) {
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入正確格式!";
-                    document.getElementById("send").disabled = true;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = true;
 
                 } else {
 
-                    document.getElementById("send").disabled = null;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = null;
                     document.getElementById("aler").hidden = true;
                 }
             };
@@ -366,18 +373,21 @@
             h.onblur = function () {
                 var value = h.value;
                 if (value.length > 10) {
-                    document.getElementById("send").disabled = true;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = true;
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入電話號碼長度等於10的正確格式!";
 
                 }
                 if (value.match("^[0-9]*[1-9][0-9]*$")) {
-                    document.getElementById("send").disabled = null;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = null;
                     document.getElementById("aler1").hidden = true;
                 } else {
 
                     document.getElementById("aler1").hidden = null;
-                    document.getElementById("send").disabled = true;
+                    var s = q2.rows[i].cells[6].children[0];
+                    s.disabled = true;
 
 
                 }
@@ -387,9 +397,15 @@
         }
 
 
-        function ange1() {
+        function ange1(r) {
             var e = confirm("確定要更改!");
             if (e == true) {
+                var i = r.parentNode.parentNode.rowIndex;
+                var x = document.getElementById('table1');
+                var s = x.rows[i].cells[1].children[1];
+                var s2 = x.rows[i].cells[2].children[1];
+                s.checked = true;
+                s2.checked = true;
                 document.getElementById("form1").action = "ange";
             }
             document.getElementById("name2").disabled = false;
@@ -400,7 +416,13 @@
 
 
         }
-        function del() {
+        function del(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            var x = document.getElementById('table1');
+            var s = x.rows[i].cells[7].children[1];
+            s.checked = true;
+            confirm(s.checked);
+
             var e = confirm("確定要刪除!");
             if (e == true) {
                 confirm(document.getElementById("form1").)
