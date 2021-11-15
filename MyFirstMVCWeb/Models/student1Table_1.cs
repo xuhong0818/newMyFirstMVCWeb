@@ -19,5 +19,6 @@ namespace MyFirstMVCWeb.Models
         public string class1 { get; set; }
         public string phone { get; set; }
         public int id { get; set; }
+        public string allemail { get; set; }
     }
 }
