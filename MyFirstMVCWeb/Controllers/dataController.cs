@@ -47,6 +47,10 @@ namespace MyFirstMVCWeb.Controllers
 
         public ActionResult studentmenu(string b)//補點名(解決) 按完補點名回到頁面
         {
+            if (Session["name"] == null)
+            {
+                return RedirectToAction("register", "one");
+            }
             ViewBag.course = b;
             string teacher_name = Convert.ToString(Session["name"]);
             teacher1 te = db.teacher1.FirstOrDefault(t => t.teachername == teacher_name);

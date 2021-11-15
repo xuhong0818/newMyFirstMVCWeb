@@ -15,11 +15,19 @@ namespace MyFirstMVCWeb.Controllers
         
         public ActionResult home()
         {
+            if (Session["name"] == null)
+            {
+                return RedirectToAction("register", "one");
+            }
             return View();
         }
 
         public ActionResult student()
         {
+            if (Session["name"] == null)
+            {
+                return RedirectToAction("register", "one");
+            }
             Book s = new Book();
             List<Book> z = new List<Book>();
             List<rollcallTable_1> z1 = db.rollcallTable_1.ToList();
@@ -116,6 +124,10 @@ namespace MyFirstMVCWeb.Controllers
 
         public ActionResult register()
         {
+            if (Session["name"] == null)
+            {
+                return RedirectToAction("register", "one");
+            }
             string status = Convert.ToString(Session["UserID"]); //登入者的學號
             string name = Convert.ToString(Session["name"]);
             student1Table_1 we = db.student1Table_1.FirstOrDefault(t => t.stud == status);
