@@ -6,7 +6,7 @@
             alert("沒有資料,請登入");
         </script>
     }
-    string teacher_name = Convert.ToString(Session["name"]);
+    string teache = ViewBag.teh;
 
     List<classromTable_1> wew = ViewBag.data4;
     ViewBag.Title = "exit";
@@ -65,7 +65,7 @@
             <option selected>請選擇課程</option>
             @foreach (var z in wew)
             {
-                if (z.teacher == teacher_name)
+                if (z.teacher == teache)
                 {
                     if (z.Course == select1)
                     {

@@ -226,6 +226,12 @@ namespace MyFirstMVCWeb.Controllers
             {
                 return RedirectToAction("register", "one");
             }
+            string te = Convert.ToString(Session["name"]);
+            teacher1 t22 = db.teacher1.FirstOrDefault(t2 => t2.teachername == te);
+            if (t22 != null)
+            {
+                ViewBag.teh = t22.teacher;
+            }
             List<classromTable_1> wx = db.classromTable_1.ToList();
             ViewBag.data4 = wx;
             ///第一次加入暫時時點名表
@@ -385,8 +391,12 @@ namespace MyFirstMVCWeb.Controllers
             }
             List<string> a = new List<string>();
             List<classromTable_1> wx = db.classromTable_1.ToList();
-
-
+            string te = Convert.ToString(Session["name"]);
+            teacher1 t22 = db.teacher1.FirstOrDefault(t2 => t2.teachername == te);
+            if (t22 != null)
+            {
+                ViewBag.teh = t22.teacher;
+            }
             ViewBag.data4 = wx;
             ////抓取點名總紀錄裡的日期
             List<allrollcallTable_1> wr = db.allrollcallTable_1.ToList();
@@ -574,11 +584,27 @@ namespace MyFirstMVCWeb.Controllers
                 db.SaveChanges();
             }
 
-            course1Table_1 q = new course1Table_1();
-            q.status = stud;
-            q.course = course;
-            db.course1Table_1.Add(q);
-            db.SaveChanges();
+            List<course1Table_1> co = db.course1Table_1.ToList();
+            course1Table_1 wc = new course1Table_1();
+            foreach (var w in co)
+            {
+                if (w.status == stud)
+                {
+                    if (w.course == course)
+                    {
+                        TempData["messg2"] = "此人已存在於本課程";
+                        return RedirectToAction("studentmenu", new { b });
+                    }
+                    else
+                    {
+                        wc.status = stud;
+                        wc.course = course;
+                        db.course1Table_1.Add(wc);
+                        db.SaveChanges();
+                    }
+                }
+            }
+
 
             firstTable_2 f1 = db.firstTable_2.FirstOrDefault(t => t.user == stud);
             if (f1 == null)
