@@ -558,7 +558,7 @@ namespace MyFirstMVCWeb.Controllers
             return RedirectToAction("studentmenu", new { b });
         }
         [HttpPost]
-        public ActionResult delsy(string stud, string course, string[] status)
+        public ActionResult delsy(string course, string[] status)
         {
             string b = course;
             //var w1 = Request.UrlReferrer.Query;
@@ -575,7 +575,9 @@ namespace MyFirstMVCWeb.Controllers
             List<course1Table_1> coy = db.course1Table_1.ToList();
             foreach (var co in coy)
             {
-                if (co.status == stud)
+                foreach(var stud1 in status) 
+                { 
+                if (co.status == stud1)
                 {
                     if (co.course == course)
                     {
@@ -583,6 +585,7 @@ namespace MyFirstMVCWeb.Controllers
                         db.course1Table_1.Remove(co);
                         db.SaveChanges();
                     }
+                }
                 }
             }
 
