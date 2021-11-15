@@ -33,7 +33,7 @@ namespace MyFirstMVCWeb.Controllers
 {
     public class DataController : Controller
     {
-        userEntities19 db = new userEntities19();
+        userEntities20 db = new userEntities20();
 
         public ActionResult Home()//補點名(解決) 按完補點名回到頁面
         {
@@ -194,13 +194,13 @@ namespace MyFirstMVCWeb.Controllers
             double oe = 0;
             foreach (var z in q)
             {
-                if (z.week == tmp)
-                {
-                    double w = Convert.ToDouble(z.time);
-                    w = w + 5;
-                    oe = w - 65;
-                    if (nowtim > oe & nowtim < w)
-                    {
+                //if (z.week == tmp)
+                //{
+                //    double w = Convert.ToDouble(z.time);
+                //    w = w + 5;
+                //    oe = w - 65;
+                //    if (nowtim > oe & nowtim < w)
+                //    {
                         foreach (var n in Q)
                         {
                             if (z.Course == n.class2)
@@ -213,8 +213,8 @@ namespace MyFirstMVCWeb.Controllers
                                 }
                             }
                         }
-                    }
-                }
+                //    }
+                //}
             }
             return RedirectToAction("exit1", new { time, status });
         }
@@ -595,14 +595,17 @@ namespace MyFirstMVCWeb.Controllers
                         TempData["messg2"] = "此人已存在於本課程";
                         return RedirectToAction("studentmenu", new { b });
                     }
-                    else
-                    {
-                        wc.status = stud;
-                        wc.course = course;
-                        db.course1Table_1.Add(wc);
-                        db.SaveChanges();
-                    }
+
                 }
+                
+            }
+            course1Table_1 w1x = db.course1Table_1.FirstOrDefault(t => t.status == stud);
+            if (w1x == null)
+            {
+                    wc.status = stud;
+                    wc.course = course;
+                    db.course1Table_1.Add(wc);
+                    db.SaveChanges();
             }
 
 

@@ -159,9 +159,6 @@
     <Compile Include="Models\rollcallTable_1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\semesterTable_1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\student1Table_1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

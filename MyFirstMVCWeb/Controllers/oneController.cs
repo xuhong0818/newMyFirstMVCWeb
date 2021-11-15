@@ -11,7 +11,7 @@ namespace MyFirstMVCWeb.Controllers
     public class oneController : Controller
     {
         // GET: one
-        userEntities19 db = new userEntities19();
+        userEntities20 db = new userEntities20();
 
         public ActionResult LogOff()
         {//登出
@@ -64,18 +64,6 @@ namespace MyFirstMVCWeb.Controllers
         {
             string Date = DateTime.Now.ToString("yyyy-MM-dd");
             List<allrollcallTable_1> ew = db.allrollcallTable_1.ToList();
-            semesterTable_1 we = db.semesterTable_1.FirstOrDefault(t => t.data == Date);
-            if (we != null)
-            {
-                foreach (var w in ew)
-                {
-                    if (w.semester == null)
-                    {
-                        w.semester = we.id;
-                        db.SaveChanges();
-                    }
-                }
-            }
             return View();
         }
     }

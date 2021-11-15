@@ -13,10 +13,10 @@ namespace MyFirstMVCWeb.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class userEntities19 : DbContext
+    public partial class userEntities20 : DbContext
     {
-        public userEntities19()
-            : base("name=userEntities19")
+        public userEntities20()
+            : base("name=userEntities20")
         {
         }
     
@@ -25,12 +25,11 @@ namespace MyFirstMVCWeb.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<allrollcallTable_1> allrollcallTable_1 { get; set; }
         public virtual DbSet<classromTable_1> classromTable_1 { get; set; }
         public virtual DbSet<course1Table_1> course1Table_1 { get; set; }
         public virtual DbSet<firstTable_2> firstTable_2 { get; set; }
-        public virtual DbSet<allrollcallTable_1> allrollcallTable_1 { get; set; }
         public virtual DbSet<rollcallTable_1> rollcallTable_1 { get; set; }
-        public virtual DbSet<semesterTable_1> semesterTable_1 { get; set; }
         public virtual DbSet<student1Table_1> student1Table_1 { get; set; }
         public virtual DbSet<teacher1> teacher1 { get; set; }
     }
