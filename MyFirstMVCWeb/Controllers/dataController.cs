@@ -456,7 +456,7 @@ namespace MyFirstMVCWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult ange(string stud, string name29, string class17, string stud12, string phone54, string name1, string course, string re)
+        public ActionResult ange(string[] stud, string name29, string class17, string stud12, string phone54, string[] name1, string course, string re)
         {
             string b = course;
             //ViewBag.course = b;
@@ -472,34 +472,49 @@ namespace MyFirstMVCWeb.Controllers
             if (w == null)
             {
                 foreach (var s in st)
-                    if (s.stud == stud)
+                {
+                    foreach (var stud1 in stud)
                     {
-                        if (s.name == name1)
+                        foreach (var name2 in name1)
                         {
-                            if (stud12 != "")
+                            if (s.stud == stud1)
                             {
-                                s.stud = stud12;
+                                if (s.name == name2)
+                                {
+                                    if (stud12 != "")
+                                    {
+                                        s.stud = stud12;
+
+                                    }
+                                    if (name29 != "")
+                                    {
+                                        s.name = name29;
+
+                                    }
+                                    if (class17 != "")
+                                    {
+                                        s.class1 = class17;
+
+                                    }
+                                    if (phone54 != "")
+                                    {
+                                        student1Table_1 w6 = db.student1Table_1.FirstOrDefault(t => t.phone == phone54);
+                                        if (w6 != null)
+                                        {
+                                            TempData["messg2"] = "電話與人重複,請重新確認電話";
+                                            return RedirectToAction("studentmenu", new { b });
+                                        }
+                                        else { 
+                                        s.phone = phone54;
+                                        }
+                                    }
+                                    db.SaveChanges();
+                                }
 
                             }
-                            if (name29 != "")
-                            {
-                                s.name = name29;
-
-                            }
-                            if (class17 != "")
-                            {
-                                s.class1 = class17;
-
-                            }
-                            if (phone54 != "")
-                            {
-                                s.phone = phone54;
-
-                            }
-                            db.SaveChanges();
                         }
-
                     }
+                }
             }
             else
             {
@@ -509,35 +524,41 @@ namespace MyFirstMVCWeb.Controllers
 
             foreach (var c in coy)
             {
-                if (c.status == stud)
+                foreach (var stud1 in stud)
                 {
-                    if (stud12 != "")
+                    if (c.status == stud1)
                     {
-                        c.status = stud12;
-                        db.SaveChanges();
+                        if (stud12 != "")
+                        {
+                            c.status = stud12;
+                            db.SaveChanges();
+                        }
                     }
                 }
             }
-            firstTable_2 z1 = db.firstTable_2.FirstOrDefault(t => t.user == stud);
-            if (z1 != null)
+            foreach (var stud1 in stud)
             {
-                if (stud12 != "")
+                firstTable_2 z1 = db.firstTable_2.FirstOrDefault(t => t.user == stud1);
+                if (z1 != null)
                 {
-                    z1.user = stud12;
+                    if (stud12 != "")
+                    {
+                        z1.user = stud12;
 
-                }
-                if (name29 != "")
-                {
-                    z1.name = name29;
+                    }
+                    if (name29 != "")
+                    {
+                        z1.name = name29;
 
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
             }
             TempData["messg1"] = "更改成功!";
             return RedirectToAction("studentmenu", new { b });
         }
         [HttpPost]
-        public ActionResult delsy(string stud, string course)
+        public ActionResult delsy(string stud, string course, string[] status)
         {
             string b = course;
             //var w1 = Request.UrlReferrer.Query;
