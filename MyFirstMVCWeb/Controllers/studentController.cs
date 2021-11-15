@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using MyFirstMVCWeb.Models;
 
+
 namespace MyFirstMVCWeb.Controllers
 {
     public class studentController : Controller
     {
         userEntities20 db = new userEntities20();
 
+        
         public ActionResult home()
         {
             return View();
@@ -36,7 +38,7 @@ namespace MyFirstMVCWeb.Controllers
             foreach (var q in wz)
             {
                 int qw = 0;
-                ps = ps + 1;
+                ps++;
                 foreach (var zq in wr)
                 {
                     if (zq.status == status)
@@ -45,7 +47,7 @@ namespace MyFirstMVCWeb.Controllers
                         {
                             if (zq.class2 == q.Course)
                             {
-                                qw = qw + 1;
+                                qw++;
                             }
                         }
                     }

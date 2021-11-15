@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyFirstMVCWeb.Models;
+using System.Net.Mail;
 /// <summary>
 /// 現在作法:
 /// 1.先把當天上課學員存在暫時點名
@@ -39,7 +40,6 @@ namespace MyFirstMVCWeb.Controllers
         {
             if (Session["name"] == null)
             {
-                int q = 0;
                 return RedirectToAction("register", "one");
             }
             return View();
@@ -189,9 +189,6 @@ namespace MyFirstMVCWeb.Controllers
             ////人臉辨識 先去判斷時間 判斷完時間再去判斷課程 之後去找學生資料更新
             List<rollcallTable_1> Q = db.rollcallTable_1.ToList();
             List<classromTable_1> q = db.classromTable_1.ToList();
-            double nowtim = Convert.ToDouble(DateTime.Now.ToString("HHmm"));//把時間轉為int類型
-            string tmp = DateTime.Now.DayOfWeek.ToString();
-            double oe = 0;
             foreach (var z in q)
             {
                 //if (z.week == tmp)
@@ -201,18 +198,45 @@ namespace MyFirstMVCWeb.Controllers
                 //    oe = w - 65;
                 //    if (nowtim > oe & nowtim < w)
                 //    {
-                        foreach (var n in Q)
+                foreach (var n in Q)
+                {
+                    if (z.Course == n.class2)
+                    {
+                        if (n.status == status)
                         {
-                            if (z.Course == n.class2)
-                            {
-                                if (n.status == status)
-                                {
-                                    n.time = time;
-                                    n.attend = "已到課";
-                                    db.SaveChanges();
-                                }
-                            }
+                            MailMessage mail = new MailMessage();
+                            //前面是發信email後面是顯示的名稱
+                            mail.From = new MailAddress("s98411158@gmail.com", status + "此封為點名成功Reminder信件");
+                            //收信者email
+                            mail.To.Add(status + "@nkust.edu.tw");
+                            //設定優先權
+                            mail.Priority = MailPriority.Normal;
+                            //標題
+                            mail.Subject = "test";
+                            //內容
+                            string s = "此堂為" + z.classroom;
+                            mail.Body = s + "<p>你已於</p>" + time + "<h1>成功辨識</h1>";
+                            //內容使用html
+                            mail.IsBodyHtml = true;
+                            //設定gmail的smtp (這是google的)
+                            SmtpClient MySmtp = new SmtpClient("smtp.gmail.com", 587);
+                            //您在gmail的帳號密碼
+                            MySmtp.Credentials = new System.Net.NetworkCredential("s98411158@gmail.com", "8610085x");
+                            //開啟ssl
+                            MySmtp.EnableSsl = true;
+                            //發送郵件
+                            MySmtp.Send(mail);
+                            //放掉宣告出來的MySmtp
+                            MySmtp = null;
+                            //放掉宣告出來的mail
+                            mail.Dispose();
+
+                            n.time = time;
+                            n.attend = "已到課";
+                            db.SaveChanges();
                         }
+                    }
+                }
                 //    }
                 //}
             }
@@ -504,8 +528,9 @@ namespace MyFirstMVCWeb.Controllers
                                             TempData["messg2"] = "電話與人重複,請重新確認電話";
                                             return RedirectToAction("studentmenu", new { b });
                                         }
-                                        else { 
-                                        s.phone = phone54;
+                                        else
+                                        {
+                                            s.phone = phone54;
                                         }
                                     }
                                     db.SaveChanges();
@@ -575,17 +600,17 @@ namespace MyFirstMVCWeb.Controllers
             List<course1Table_1> coy = db.course1Table_1.ToList();
             foreach (var co in coy)
             {
-                foreach(var stud1 in status) 
-                { 
-                if (co.status == stud1)
+                foreach (var stud1 in status)
                 {
-                    if (co.course == course)
+                    if (co.status == stud1)
                     {
-                        TempData["messg1"] = "刪除成功!";
-                        db.course1Table_1.Remove(co);
-                        db.SaveChanges();
+                        if (co.course == course)
+                        {
+                            TempData["messg1"] = "刪除成功!";
+                            db.course1Table_1.Remove(co);
+                            db.SaveChanges();
+                        }
                     }
-                }
                 }
             }
 
@@ -621,15 +646,15 @@ namespace MyFirstMVCWeb.Controllers
                     }
 
                 }
-                
+
             }
             course1Table_1 w1x = db.course1Table_1.FirstOrDefault(t => t.status == stud);
             if (w1x == null)
             {
-                    wc.status = stud;
-                    wc.course = course;
-                    db.course1Table_1.Add(wc);
-                    db.SaveChanges();
+                wc.status = stud;
+                wc.course = course;
+                db.course1Table_1.Add(wc);
+                db.SaveChanges();
             }
 
 
