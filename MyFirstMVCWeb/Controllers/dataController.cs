@@ -204,32 +204,38 @@ namespace MyFirstMVCWeb.Controllers
                     {
                         if (n.status == status)
                         {
-                            MailMessage mail = new MailMessage();
-                            //前面是發信email後面是顯示的名稱
-                            mail.From = new MailAddress("s98411158@gmail.com", status + "此封為點名成功Reminder信件");
-                            //收信者email
-                            mail.To.Add(status + "@nkust.edu.tw");
-                            //設定優先權
-                            mail.Priority = MailPriority.Normal;
-                            //標題
-                            mail.Subject = "test";
-                            //內容
-                            string s = "此堂為" + z.classroom;
-                            mail.Body = s + "<p>你已於</p>" + time + "<h1>成功辨識</h1>";
-                            //內容使用html
-                            mail.IsBodyHtml = true;
-                            //設定gmail的smtp (這是google的)
-                            SmtpClient MySmtp = new SmtpClient("smtp.gmail.com", 587);
-                            //您在gmail的帳號密碼
-                            MySmtp.Credentials = new System.Net.NetworkCredential("s98411158@gmail.com", "8610085x");
-                            //開啟ssl
-                            MySmtp.EnableSsl = true;
-                            //發送郵件
-                            MySmtp.Send(mail);
-                            //放掉宣告出來的MySmtp
-                            MySmtp = null;
-                            //放掉宣告出來的mail
-                            mail.Dispose();
+                            student1Table_1 st = db.student1Table_1.FirstOrDefault(t => t.stud == status);
+                            if (st != null)
+                            {
+
+                                 MailMessage mail = new MailMessage();
+                                //前面是發信email後面是顯示的名稱
+                                mail.From = new MailAddress("s98411158@gmail.com", status + "此封為點名成功Reminder信件");
+                                //收信者email
+                                mail.To.Add(st.allemail);
+                                //設定優先權
+                                mail.Priority = MailPriority.Normal;
+                                //標題
+                                mail.Subject = "test";
+                                //內容
+                                string s = "此堂為" + z.classroom;
+                                mail.Body = s + "<p>你已於</p>" + time + "<h1>成功辨識</h1>";
+                                //內容使用html
+                                mail.IsBodyHtml = true;
+                                //設定gmail的smtp (這是google的)
+                                SmtpClient MySmtp = new SmtpClient("smtp.gmail.com", 587);
+                                //您在gmail的帳號密碼
+                                MySmtp.Credentials = new System.Net.NetworkCredential("s98411158@gmail.com", "8610085x");
+                                //開啟ssl
+                                MySmtp.EnableSsl = true;
+                                //發送郵件
+                                MySmtp.Send(mail);
+                                //放掉宣告出來的MySmtp
+                                MySmtp = null;
+                                //放掉宣告出來的mail
+                                mail.Dispose();
+                            }
+                           
 
                             n.time = time;
                             n.attend = "已到課";
