@@ -85,8 +85,9 @@ namespace MyFirstMVCWeb.Controllers
         //把表單裡的數據存在FormCollection和sa裡 就能從兩者找值
         ///post過來的數值儲存在string陣列裡再用foreach迭代出來
         [HttpPost]
-        public ActionResult Edit(string[] status, string class2)//補點名(解決) 按完補點名回到頁面
+        public ActionResult Edit(string[] status, string class2, string select2, string name32)//補點名(解決) 按完補點名回到頁面
         {
+            var w1 = Request.UrlReferrer.Segments[2];
             List<rollcallTable_1> bn = db.rollcallTable_1.ToList();
             if (status != null)
             {
@@ -108,7 +109,80 @@ namespace MyFirstMVCWeb.Controllers
                     }
                 }
             }
-            return RedirectToAction("exit1", new { class2 });
+
+            List<allrollcallTable_1> all = db.allrollcallTable_1.ToList();
+            if (status != null)
+            {
+                foreach (var status1 in status)
+                {
+                    foreach (var al in all)
+                    {
+                        if (al.status == status1)
+                        {
+                            if (al.class2 == class2)
+                            {
+                                if (al.name == name32)
+                                    if (al.data == select2)
+                                    {
+
+                                        al.time = DateTime.Now.ToString("yyyy-MM-dd") + DateTime.Now.ToString("HH:mm:ss");//日期
+                                        al.attend = "補點";
+                                        db.SaveChanges();
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (w1 == "one2")
+            {
+                return RedirectToAction("one3", new { class2, select2 });
+            }
+            else
+            {
+                return RedirectToAction("exit1", new { class2 });
+            }
+        }
+        public ActionResult one3(string select1, string select2, string class2)
+        {
+            List<classromTable_1> wx = db.classromTable_1.ToList();
+            ViewBag.data4 = wx;
+            List<string> a = new List<string>();
+            List<allrollcallTable_1> wr = db.allrollcallTable_1.ToList();
+            List<allrollcallTable_1> wb = db.allrollcallTable_1.ToList();
+            classromTable_1 zw = db.classromTable_1.FirstOrDefault(t => t.Course == select1);
+            if (zw != null)
+            {
+                ViewBag.classroom = zw.classroom;
+            }
+            string te = Convert.ToString(Session["name"]);
+            teacher1 t22 = db.teacher1.FirstOrDefault(t2 => t2.teachername == te);
+            if (t22 != null)
+            {
+                ViewBag.teh = t22.teacher;
+            }
+            ViewBag.data3 = wr;
+            ViewBag.select1 = class2;
+            ViewBag.select2 = select2;
+            string i = "";
+            foreach (var wq in wr)
+            {
+                if (wq.data != i)
+                {
+                    string w = a.FirstOrDefault(t => t == wq.data);
+                    if (w == null)
+                    {
+                        i = wq.data;
+                        a.Add(wq.data);
+                    }
+
+                }
+
+            }
+            ViewBag.data1 = a;
+            //日期
+            return View("one1");
         }
 
         //點名紀錄儲存(解決)
@@ -212,7 +286,7 @@ namespace MyFirstMVCWeb.Controllers
                             if (st != null)
                             {
 
-                                 MailMessage mail = new MailMessage();
+                                MailMessage mail = new MailMessage();
                                 //前面是發信email後面是顯示的名稱
                                 mail.From = new MailAddress("s98411158@gmail.com", status + "此封為點名成功Reminder信件");
                                 //收信者email
@@ -239,7 +313,7 @@ namespace MyFirstMVCWeb.Controllers
                                 //放掉宣告出來的mail
                                 mail.Dispose();
                             }
-                           
+
 
                             n.time = time;
                             n.attend = "已到課";
@@ -417,8 +491,10 @@ namespace MyFirstMVCWeb.Controllers
         }
 
         //總紀錄
-        public ActionResult one1()
+        public ActionResult one1(string class2, string select2)
         {
+            ViewBag.select1 = class2;
+            ViewBag.select2 = select2;
             if (Session["name"] == null)
             {
                 return RedirectToAction("register", "one");
@@ -454,7 +530,7 @@ namespace MyFirstMVCWeb.Controllers
         }
         ///搜索問題
         [HttpPost]
-        public ActionResult one2(string select1, string select2)
+        public ActionResult one2(string select1, string select2, string class2)
         {
             List<classromTable_1> wx = db.classromTable_1.ToList();
             ViewBag.data4 = wx;
@@ -465,6 +541,12 @@ namespace MyFirstMVCWeb.Controllers
             if (zw != null)
             {
                 ViewBag.classroom = zw.classroom;
+            }
+            string te = Convert.ToString(Session["name"]);
+            teacher1 t22 = db.teacher1.FirstOrDefault(t2 => t2.teachername == te);
+            if (t22 != null)
+            {
+                ViewBag.teh = t22.teacher;
             }
             ViewBag.data3 = wr;
             ViewBag.select1 = select1;
@@ -589,6 +671,7 @@ namespace MyFirstMVCWeb.Controllers
                     db.SaveChanges();
                 }
             }
+
             TempData["messg1"] = "更改成功!";
             return RedirectToAction("studentmenu", new { b });
         }
@@ -679,6 +762,15 @@ namespace MyFirstMVCWeb.Controllers
                 db.firstTable_2.Add(f);
                 db.SaveChanges();
             }
+            rollcallTable_1 ro = new rollcallTable_1();
+            ro.status = stud;
+            ro.name = name;
+            ro.class1 = select1;
+            ro.class2 = course;
+            ro.attend = "未到課";
+            ro.data = DateTime.Now.ToString("yyyy-MM-dd");//日期
+            db.rollcallTable_1.Add(ro);
+            db.SaveChanges();
 
             return RedirectToAction("studentmenu", new { b });
         }

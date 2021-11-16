@@ -76,7 +76,7 @@
             <option value="exit1">請選擇課程</option>
             foreach (var z in wew)
             {
-                if (z.teacher == teacher_name)
+                if (z.teacher == ViewBag.teh)
                 {
                     if (z.Course == course)
                     {
@@ -85,7 +85,7 @@
                     }
                     else
                     {
-                        <option value="@z.Course">@z.classroom</option>
+                        <option value="@z.Course" >@z.classroom</option>
                     }
                 }
             }

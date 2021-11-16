@@ -227,7 +227,7 @@
                                         <td>
                                             <input type="text" id="name3" name="n1" value="@we.name" disabled />
 
-                                            <input type="checkbox" id="name3" name="name1" value="@we.name"  hidden/>
+                                            <input type="checkbox" id="name3" name="name1" value="@we.name" hidden />
 
                                         </td>
                                         <td>
@@ -236,6 +236,9 @@
                                         </td>
                                         <td>
                                             <input type="text" id="name5" name="phone2" value="@we.phone" pattern="09\d{2}\-?\d{3}\-?\d{3}" minlength="10" maxlength="10" class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " disabled />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="name5" name="allemail" value="@we.allemail" class="form-control" disabled />
                                         </td>
                                         <td>
                                             <input name="ewqeqwq" id="btn" type="button" class="btn btn-success" onclick="on(this)" value="編輯">
@@ -301,7 +304,7 @@
         function on(r) {
             var i = r.parentNode.parentNode.rowIndex;
             var q2 = document.getElementById('table1');
-            var s = q2.rows[i].cells[6].children[0];
+            var s = q2.rows[i].cells[7].children[0];
             s.disabled = false;
             /*以下為更改編輯按鈕動作*/
             r.value = "取消";
@@ -316,11 +319,11 @@
 
                 if (value.match(/[^\u3447-\uFA29]/ig)) {
                     ("aler").hidden = null;
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = true;
 
                 } else {
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = null;
                     document.getElementById("aler").hidden = true;
 
@@ -334,14 +337,14 @@
                 var value = f.value;
 
                 if (value.match(/[^\u3447-\uFA29]/ig)) {
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = null;
                     document.getElementById("aler").hidden = true;
 
                 } else {
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入正確格式!";
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = true;
 
                 }
@@ -356,12 +359,12 @@
                 if (value.match(/[^\u3447-\uFA29]/)) {
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入正確格式!";
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = true;
 
                 } else {
 
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = null;
                     document.getElementById("aler").hidden = true;
                 }
@@ -373,20 +376,20 @@
             h.onblur = function () {
                 var value = h.value;
                 if (value.length > 10) {
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = true;
                     document.getElementById("ale").hidden = null;
                     document.getElementById("str").innerText = "請輸入電話號碼長度等於10的正確格式!";
 
                 }
                 if (value.match("^[0-9]*[1-9][0-9]*$")) {
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = null;
                     document.getElementById("aler1").hidden = true;
                 } else {
 
                     document.getElementById("aler1").hidden = null;
-                    var s = q2.rows[i].cells[6].children[0];
+                    var s = q2.rows[i].cells[7].children[0];
                     s.disabled = true;
 
 
@@ -419,7 +422,7 @@
         function del(r) {
             var i = r.parentNode.parentNode.rowIndex;
             var x = document.getElementById('table1');
-            var s = x.rows[i].cells[7].children[1];
+            var s = x.rows[i].cells[8].children[1];
             s.checked = true;
 
             var e = confirm("確定要刪除!");

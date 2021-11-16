@@ -126,6 +126,8 @@
                         {
                             if (a.data == select2)
                             {
+                                <input type="hidden" name="select2" value="@select2">
+
                                 if (a.attend == "未到課")
                                 {
                                     m = m + 1;
@@ -147,6 +149,8 @@
                                             ///框大一點
                                         }
                                         <input type="hidden" name="class2" value="@a.class2">
+                                        <input type="hidden" name="name32" value="@a.name">
+
                                     </tr>
                                 }
                                 else
