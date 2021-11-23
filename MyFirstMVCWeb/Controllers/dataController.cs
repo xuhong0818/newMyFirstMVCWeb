@@ -572,7 +572,7 @@ namespace MyFirstMVCWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult ange(string[] stud, string name29, string class17, string stud12, string phone54, string[] name1, string course, string re)
+        public ActionResult ange(string[] stud, string name29, string class17, string stud12, string phone54, string[] name1, string course, string re, string email12)
         {
             string b = course;
             //ViewBag.course = b;
@@ -624,6 +624,11 @@ namespace MyFirstMVCWeb.Controllers
                                         {
                                             s.phone = phone54;
                                         }
+                                    }
+                                    if (email12 != "")
+                                    {
+                                        s.allemail = email12;
+
                                     }
                                     db.SaveChanges();
                                 }

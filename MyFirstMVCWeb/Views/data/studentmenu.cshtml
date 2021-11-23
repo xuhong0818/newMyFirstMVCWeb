@@ -202,6 +202,8 @@
                     <th scope="col">姓名</th>
                     <th scope="col">班級</th>
                     <th scope="col">聯絡電話</th>
+                    <th scope="col">電子信箱</th>
+
 
                 </tr>
             </thead>
@@ -290,6 +292,7 @@
             document.getElementsByName("class17")[0].remove();
             document.getElementsByName("phone54")[0].remove();
             document.getElementsByName("name29")[0].remove();
+            document.getElementsByName("email12 ")[0].remove();
             document.getElementById("send").disabled = true;
             //document.getElementById("btn2").hidden = true;
             //document.getElementById("btn").hidden = null;
@@ -396,6 +399,33 @@
                 }
             }
             document.getElementById("table1").rows[i].cells[4].appendChild(h);
+
+            var h = document.createElement("input");
+            h.name = "email2";
+            h.type = "text";
+            h.onblur = function () {
+                var value = h.value;
+                if (value.length > 10) {
+                    var s = q2.rows[i].cells[7].children[0];
+                    s.disabled = true;
+                    document.getElementById("ale").hidden = null;
+                    document.getElementById("str").innerText = "請輸入電話號碼長度等於10的正確格式!";
+
+                }
+                if (value.match("^[0-9]*[1-9][0-9]*$")) {
+                    var s = q2.rows[i].cells[7].children[0];
+                    s.disabled = null;
+                    document.getElementById("aler1").hidden = true;
+                } else {
+
+                    document.getElementById("aler1").hidden = null;
+                    var s = q2.rows[i].cells[7].children[0];
+                    s.disabled = true;
+
+
+                }
+            }
+            document.getElementById("table1").rows[i].cells[5].appendChild(h);
             document.getElementById("btn")[0].remove();
         }
 
